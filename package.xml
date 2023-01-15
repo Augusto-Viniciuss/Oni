@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>oni_claw_gazebo</name>
-  <version>0.0.0</version>
-  <description>Launch Gazebo simulation with Oni Claw robot.</description>
+  <name>oni_gazebo</name>
+  <version>0.1.0</version>
+  <description>Launch Gazebo simulation with Oni robot.</description>
   <maintainer email="augustoviniciud@gmail.com">Augusto</maintainer>
   <license>Apache 2.0</license>
 
