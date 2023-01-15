@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="Oni_Claw">
+    <xacro:include filename="sensors/imu_sensor.urdf.xacro"/>
+    <xacro:include filename="sensors/generic_laser_sensor.urdf.xacro"/>
+    
+    <xacro:macro name="omni_drive_controller">
+        <gazebo>
+            <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+            <ros>
+                <argument>odom:=odom/unfiltered</argument>
+            </ros>
+            <command_topic>cmd_vel</command_topic>
+            <odometry_topic>odom/unfiltered</odometry_topic>
+            <odometry_frame>odom</odometry_frame>
+            <odometry_rate>20.0</odometry_rate>
+            <robot_base_frame>base_footprint</robot_base_frame>
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>false</publish_odom_tf>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="mecanum_wheel" params="side radius width pos_x pos_y pos_z orientation_z mass mesh">
+        <link name="${side}_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 ${orientation_z}"/>
+            <geometry>
+            <mesh filename="${mesh}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+            <geometry>
+            <cylinder radius="${radius}" length="${width}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${mass}"/>
+            <inertia ixx="${(2/5) * mass * (radius * radius)}" ixy="0" ixz="0"
+                    iyy="${(2/5) * mass * (radius * radius)}" iyz="0"
+                    izz="${(2/5) * mass * (radius * radius)}" />
+        </inertial>
+        </link>
+
+        <gazebo reference="${side}_wheel">
+            <mu1>0.01</mu1>
+            <mu2>0.01</mu2>
+        </gazebo>
+
+        <joint name="${side}_wheel_to_body" type="continuous">
+        <axis xyz="1 0 0" />
+        <parent link="body"/>
+        <child link="${side}_wheel"/>
+        <origin xyz="${pos_x} ${pos_y} ${pos_z}" rpy="0 0 0"/>
+        </joint>
+    </xacro:macro>
+
+    <link name="body">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
+            <geometry>
+                <mesh filename="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/body_OC.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="$0 0 -${pi/2}"/>
+            <geometry>
+                <mesh filename="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/body_OC.dae" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.8"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.0029" ixy="0.0" ixz="0.0" iyy="0.0029" iyz="0.0" izz="0.00533"/>
+        </inertial>
+    </link>
+
+    <xacro:mecanum_wheel
+        side="front_right"
+        radius="0.033"
+        width="0.026"
+        pos_x="0.05"
+        pos_y="-0.085"
+        pos_z="-0.014"
+        orientation_z="${pi/2}"
+        mass="0.3"
+        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fr_wheel.dae"
+    />
+
+    <xacro:mecanum_wheel
+        side="front_left"
+        radius="0.033"
+        width="0.026"
+        pos_x="0.05"
+        pos_y="0.085"
+        pos_z="-0.014"
+        orientation_z="${-pi/2}"
+        mass="0.3"
+        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fl_wheel.dae"
+    />
+
+    <xacro:mecanum_wheel
+        side="back_right"
+        radius="0.033"
+        width="0.026"
+        pos_x="-0.05"
+        pos_y="-0.085"
+        pos_z="-0.014"
+        orientation_z="${pi/2}"
+        mass="0.3"
+        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fr_wheel.dae"
+    />
+
+    <xacro:mecanum_wheel
+        side="back_left"
+        radius="0.033"
+        width="0.026"
+        pos_x="-0.05"
+        pos_y="0.085"
+        pos_z="-0.014"
+        orientation_z="${-pi/2}"
+        mass="0.3"
+        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fl_wheel.dae"
+    />
+
+    <xacro:imu_sensor/>
+
+    <xacro:laser_sensor
+        update_rate="10"
+        ray_count="360"
+        min_angle="-3.1416"
+        max_angle="3.1416"
+        min_range="0.08"
+        max_range="12.0"
+        frame_id="laser"
+        topic_name="scan"
+    />
+
+    <xacro:omni_drive_controller/>
+</robot>
