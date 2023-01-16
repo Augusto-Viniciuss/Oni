@@ -10,8 +10,8 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    oni_claw_gazebo_path = get_package_share_path("oni_claw_gazebo")
-    model_oni_claw_path = oni_claw_gazebo_path / "models/oni_claw.urdf.xacro"
+    oni_claw_gazebo_path = get_package_share_path("oni_gazebo")
+    model_oni_claw_path = oni_claw_gazebo_path / "oni_description/oni.urdf.xacro"
     rviz_config_path = oni_claw_gazebo_path / "rviz/config_oni.rviz"
 
     gui_arg = DeclareLaunchArgument(name="gui", default_value="false", choices=["true", "false"], description="Flag to enable joint_state_publisher_gui")

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro" name="Oni_Claw">
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="Oni">
     <xacro:include filename="sensors/imu_sensor.urdf.xacro"/>
     <xacro:include filename="sensors/laser_sensor.urdf.xacro"/>
     

@@ -13,7 +13,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch rviz models worlds 
+install(DIRECTORY launch rviz oni_description 
         DESTINATION share/${PROJECT_NAME}
 )
 
