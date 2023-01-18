@@ -10,12 +10,12 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    oni_claw_gazebo_path = get_package_share_path("oni_gazebo")
-    model_oni_claw_path = oni_claw_gazebo_path / "oni_description/oni.urdf.xacro"
-    rviz_config_path = oni_claw_gazebo_path / "rviz/config_oni.rviz"
+    oni_gazebo_path = get_package_share_path("oni_gazebo")
+    model_oni_path = oni_gazebo_path / "oni_description/oni.urdf.xacro"
+    rviz_config_path = oni_gazebo_path / "rviz/config_oni.rviz"
 
     gui_arg = DeclareLaunchArgument(name="gui", default_value="false", choices=["true", "false"], description="Flag to enable joint_state_publisher_gui")
-    model_arg = DeclareLaunchArgument(name="model", default_value=str(model_oni_claw_path), description="Absolute path to robot urdf file")
+    model_arg = DeclareLaunchArgument(name="model", default_value=str(model_oni_path), description="Absolute path to robot urdf file")
     rviz_arg = DeclareLaunchArgument(name="rvizconfig", default_value=str(rviz_config_path), description="Absolute path to rviz config file")
     
     robot_description = ParameterValue(
@@ -53,9 +53,9 @@ def generate_launch_description():
     gazebo_node = Node(
    	 	package= "gazebo_ros",
    	 	executable= "spawn_entity.py" ,
-   	 	name= "oni_claw_spawner" ,
+   	 	name= "oni_spawner" ,
    	 	output= "screen" ,
-   	 	arguments= ["-topic", "/robot_description", "-entity", "oni_claw", "-z", "0.03"]
+   	 	arguments= ["-topic", "/robot_description", "-entity", "oni", "-z", "0.03"]
     )
 
     return LaunchDescription([
