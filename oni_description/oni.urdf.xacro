@@ -60,13 +60,13 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
             <geometry>
-                <mesh filename="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/body_OC.dae" />
+                <mesh filename="file:///$(find oni_gazebo)/oni_description/meshes/body_OC.dae" />
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="$0 0 -${pi/2}"/>
+            <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
             <geometry>
-                <mesh filename="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/body_OC.dae" />
+                <mesh filename="file:///$(find oni_gazebo)/oni_description/meshes/body_OC.dae" />
             </geometry>
         </collision>
         <inertial>
@@ -85,7 +85,7 @@
         pos_z="-0.014"
         orientation_z="${pi/2}"
         mass="0.3"
-        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fr_wheel.dae"
+        mesh="file:///$(find oni_gazebo)/oni_description/meshes/fr_wheel.dae"
     />
 
     <xacro:mecanum_wheel
@@ -97,7 +97,7 @@
         pos_z="-0.014"
         orientation_z="${-pi/2}"
         mass="0.3"
-        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fl_wheel.dae"
+        mesh="file:///$(find oni_gazebo)/oni_description/meshes/fl_wheel.dae"
     />
 
     <xacro:mecanum_wheel
@@ -109,7 +109,7 @@
         pos_z="-0.014"
         orientation_z="${pi/2}"
         mass="0.3"
-        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fr_wheel.dae"
+        mesh="file:///$(find oni_gazebo)/oni_description/meshes/fr_wheel.dae"
     />
 
     <xacro:mecanum_wheel
@@ -121,7 +121,7 @@
         pos_z="-0.014"
         orientation_z="${-pi/2}"
         mass="0.3"
-        mesh="file:////home/augusto/ros2_ws_oni/src/oni_claw_gazebo/models/meshes/fl_wheel.dae"
+        mesh="file:///$(find oni_gazebo)/oni_description/meshes/fl_wheel.dae"
     />
 
     <xacro:imu_sensor/>
